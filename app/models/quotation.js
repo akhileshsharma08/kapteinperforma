@@ -16,7 +16,7 @@ const QuotationSchema = new Schema(
   { timestamps: true }
 );
 
-const Inventory =
-  mongoose.models.Inventory || mongoose.model("Quotation", QuotationSchema);
+const Quotation =
+  mongoose.models.Quotation || mongoose.model("Quotation", QuotationSchema);
 
-export default Inventory;
+export default Quotation;

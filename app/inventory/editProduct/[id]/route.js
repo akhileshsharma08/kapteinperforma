@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import Inventory from "@/app/models/inventory";
+import Inventory from "@/app/models/quotation";
 import connectMongoDb from "@/app/utils/connection";
 
 export async function PUT(request, { params }) {

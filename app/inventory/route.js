@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-const { default: Inventory } = require("@/app/models/inventory");
+const { default: Inventory } = require("@/app/models/quotation");
 const { default: connectMongoDb } = require("@/app/utils/connection");
 
 // get all the stocks from the inventory
