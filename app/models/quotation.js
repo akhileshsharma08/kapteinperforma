@@ -1,17 +1,25 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose from "mongoose";
+
+const { Schema } = mongoose;
 
 const QuotationSchema = new Schema(
   {
-    itemName: String,
-    firmName: String,
-    supplyPlace: String,
-    qty: Number,
-    rate: Number,
-    gstNumber: Number,
-    email: Number,
-    contact: Boolean,
-    brand: Boolean,
-    handelingFee: Boolean,
+    companyDetails: {
+      firmName: String,
+      supplyPlace: String,
+      gstNumber: String,
+      email: String,
+      contact: String,
+    },
+    itemDetails: [
+      {
+        itemName: String,
+        qty: Number,
+        rate: Number,
+      },
+    ],
+    brand: String,
+    handlingFee: Number,
   },
   { timestamps: true }
 );

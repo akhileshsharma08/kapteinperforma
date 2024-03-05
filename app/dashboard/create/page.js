@@ -5,7 +5,7 @@ import { useMyContext } from "@/app/Context/MyContext";
 import { useRouter } from "next/navigation";
 
 const CreatePage = () => {
-  const {clientDetail, setClientDetail} = useMyContext()
+  const { setClientDetail} = useMyContext()
   const router = useRouter()
   const [loading,setLoading]= useState(false)
   const [formData, setFormData] = useState({

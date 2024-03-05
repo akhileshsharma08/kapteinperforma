@@ -6,7 +6,7 @@ import { MdDeleteForever } from "react-icons/md";
 import Link from "next/link";
 import { useMyContext } from "@/app/Context/MyContext";
 import toast, { Toaster } from 'react-hot-toast';
-
+import axios from "axios";
 
 const ItemDetailForm = () => {
   const [counter, setCounter] = useState(0);
@@ -64,23 +64,34 @@ const ItemDetailForm = () => {
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const fee = prompt('Enter handling fee:');
-  if (fee !== null) {
-    const parsedFee = parseFloat(fee);
-    if (!isNaN(parsedFee)) {
-      const itemsWithHandlingFee = items.map(item => ({
-        ...item,
-        handlingFee: parsedFee
-      }));
-      setQuotation(itemsWithHandlingFee);
-      setHandlingFee(parsedFee);
-    } else {
-      alert('Please enter a valid handling fee.');
+    if (fee !== null) {
+      const parsedFee = parseFloat(fee);
+      if (!isNaN(parsedFee)) {
+        try {
+          const itemsWithHandlingFee = items.map(item => ({
+            ...item,
+            handlingFee: parsedFee
+          }));
+          const quotationData = {
+            items: itemsWithHandlingFee,
+            handlingFee: parsedFee,
+            clientDetails: clientDetail
+          };
+          const response = await axios.post('/api/quotation/create', quotationData);
+          console.log(response.data);
+          toast.success('Quotation created successfully');
+        } catch (error) {
+          console.error('Error during quotation creation:', error);
+          toast.error('Failed to create quotation');
+        }
+      } else {
+        alert('Please enter a valid handling fee.');
+      }
     }
-  }
-    toast.success("items saved ")
   };
+  
 
   const HandlePreview=()=>{
     setQuotation(...items)
@@ -128,7 +139,6 @@ const ItemDetailForm = () => {
     []
   );
 
-  // Create a table instance using react-table
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable({ columns, data: items });
 
   return (
